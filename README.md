@@ -1,6 +1,12 @@
 # VL53L9CX Breakout Board
 
-![VL53L9CX breakout board](images/vl53l9cx-breakout-board-preview.jpg)
+![Animated assembly view of the VL53L9CX breakout board](images/vl53l9cx-breakout-board-assembly.gif)
+
+## Blue PCB variant
+
+| Top side | Bottom side |
+| --- | --- |
+| ![Blue PCB top view](images/vl53l9cx-breakout-board-blue-top-view.png) | ![Blue PCB bottom view](images/vl53l9cx-breakout-board-blue-bottom-view.png) |
 
 A compact carrier for STMicroelectronics’ VL53L9CX direct time-of-flight sensor. It provides a 3.3 V host interface, onboard sensor power rails, I²C/I3C bus translation, and an external 24 MHz clock.
 
