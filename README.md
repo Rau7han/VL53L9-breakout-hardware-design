@@ -1,63 +1,71 @@
 # VL53L9CX Breakout Board
 
-![Animated assembly view of the VL53L9CX breakout board](images/vl53l9cx-breakout-board-assembly.gif)
+## Video link
 
-## Blue PCB variant
+[View the board assembly animation](images/vl53l9cx-breakout-board-assembly.gif)
 
-| Top side | Bottom side |
+## Project introduction
+
+A compact hardware breakout for STMicroelectronics’ VL53L9CX direct time-of-flight sensor. It connects the sensor to a 3.3 V host over I²C or I3C and provides two Qwiic connectors plus a 6-pin host header.
+
+## Project function
+
+- Exposes the VL53L9CX SDA, SCL, interrupt, and sync signals to a host.
+- Translates the host’s 3.3 V I²C/I3C bus to the sensor’s 1.8 V I/O domain.
+- Provides the sensor’s 1.8 V and 1.2 V rails from a regulated 3.3 V input.
+- Supplies the sensor with an onboard 24 MHz clock.
+
+## Project Parameters
+
+| Parameter | Value |
+| --- | --- |
+| Board input | Regulated 3.3 V |
+| Host logic | 3.3 V |
+| Sensor rails | AVDD/VBAT 3.3 V, IOVDD 1.8 V, DVDD 1.2 V |
+| Bus | I²C/I3C on shared SDA/SCL lines |
+| External clock | 24 MHz |
+| Connectors | 2 Qwiic connectors; 1 × 6-pin, 2.54 mm header |
+
+**Qwiic pinout:** 1 GND, 2 3V3, 3 SDA, 4 SCL.
+
+**Host header:** 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 INT, 6 SYNC.
+
+## Principle analysis (hardware description)
+
+The board is organized into four functional sections:
+
+1. **Power:** two onboard regulators generate the sensor’s 1.8 V I/O and 1.2 V core supplies. The sensor’s AVDD and VBAT pins use the 3.3 V input.
+2. **Sensor and clock:** the VL53L9CX connects to the host bus and receives a 24 MHz clock from the onboard oscillator.
+3. **I²C/I3C translation:** a TCA39306 translates SDA and SCL between the 3.3 V host and 1.8 V sensor domains.
+4. **Control signals:** level translators carry INT from the sensor to the host and SYNC from the host to the sensor.
+
+## Software code
+
+This repository contains hardware files and reference images; it does not include host firmware. Configure the host driver for the board’s 3.3 V AVDD, 1.8 V IOVDD, and 24 MHz external clock. See the [VL53L9CX datasheet](https://www.st.com/resource/en/datasheet/vl53l9cx.pdf).
+
+## Announcements
+
+- Power the board from a regulated 3.3 V supply. Do not connect 5 V to the 3V3 input.
+- The editable EasyEDA schematic/PCB project and source 3D model are not included in this repository.
+- The blue views below show an alternate appearance of the same board layout.
+
+## Assembling processes
+
+1. Fabricate the 4-layer PCB using the [Gerber and drill archive](manufacturing/vl53l9cx-breakout-gerber-and-drill.zip); review the fabricator’s layer, drill, and outline preview.
+2. Assemble components using the [BOM](manufacturing/vl53l9cx-breakout-bill-of-materials.xlsx) and [pick-and-place file](manufacturing/vl53l9cx-breakout-pick-and-place.xlsx).
+3. Check component orientation and soldering, then power the board from regulated 3.3 V.
+4. Connect the host over I²C or I3C and configure its VL53L9CX driver.
+
+The [interactive BOM](manufacturing/vl53l9cx-breakout-interactive-bom.html) can be downloaded and opened in a browser. The manufacturing files’ hashes are in [SHA256SUMS](manufacturing/SHA256SUMS).
+
+## Finished product display
+
+![VL53L9CX breakout board assembly animation](images/vl53l9cx-breakout-board-assembly.gif)
+
+| Blue PCB — top | Blue PCB — bottom |
 | --- | --- |
 | ![Blue PCB top view](images/vl53l9cx-breakout-board-blue-top-view.png) | ![Blue PCB bottom view](images/vl53l9cx-breakout-board-blue-bottom-view.png) |
 
-A compact carrier for STMicroelectronics’ VL53L9CX direct time-of-flight sensor. It provides a 3.3 V host interface, onboard sensor power rails, I²C/I3C bus translation, and an external 24 MHz clock.
+## License
 
-## Board overview
-
-| Feature | Details |
-| --- | --- |
-| Input | Regulated 3.3 V |
-| Host logic | 3.3 V |
-| Sensor rails | AVDD/VBAT: 3.3 V; IOVDD: 1.8 V; DVDD: 1.2 V |
-| Host bus | I²C or I3C on shared SDA/SCL lines, translated to the sensor’s 1.8 V I/O domain |
-| Clock | Onboard 24 MHz oscillator |
-| Connectors | Two Qwiic connectors and one 6-pin, 2.54 mm host header |
-
-### Connector pinout
-
-| Pin | Qwiic connectors | Host header |
-| ---: | --- | --- |
-| 1 | GND | 3V3 |
-| 2 | 3V3 | GND |
-| 3 | SDA | SDA |
-| 4 | SCL | SCL |
-| 5 | — | INT |
-| 6 | — | SYNC |
-
-Use a regulated 3.3 V supply. Do not apply 5 V to the board’s 3V3 input.
-
-## Manufacturing files
-
-The `manufacturing/` directory contains fabrication and assembly outputs:
-
-- [Gerber and drill archive](manufacturing/vl53l9cx-breakout-gerber-and-drill.zip) — four copper layers, solder mask, silkscreen, paste, board outline, and drill data.
-- [Bill of materials](manufacturing/vl53l9cx-breakout-bill-of-materials.xlsx)
-- [Pick-and-place file](manufacturing/vl53l9cx-breakout-pick-and-place.xlsx)
-- [Interactive BOM](manufacturing/vl53l9cx-breakout-interactive-bom.html) — download and open in a browser.
-- [Manufacturing checksums](manufacturing/SHA256SUMS)
-
-### Fabrication and assembly
-
-1. Upload the Gerber ZIP to the board fabricator and review its layer and drill preview.
-2. Confirm the board outline, layer count, and fabrication preview before ordering.
-3. For assembly, provide the BOM and pick-and-place file; review part substitutions, rotations, and placements in the assembler’s preview.
-
-## Repository contents
-
-- `manufacturing/` — Gerber, drill, BOM, assembly-placement, and interactive BOM files.
-- `images/` — product renders and a [schematic preview](images/schematic-vl53l9cx-breakout-board.png).
-- `LICENSE` — license terms for this repository.
-
-The editable EasyEDA schematic/PCB project, firmware, and source 3D model are not included in this package.
-
-## Reference
-
-[VL53L9CX datasheet — STMicroelectronics](https://www.st.com/resource/en/datasheet/vl53l9cx.pdf)
+See [LICENSE](LICENSE).
