@@ -1,0 +1,22 @@
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Editor and temporary files
+*~
+*.swp
+*.swo
+*.tmp
+*.autosave
+
+# CAD local state and backups
+*.kicad_prl
+*.lck
+~*.lck
+*-backups/
+*-rescue/
+
+# Blender backup files
+*.blend1
+*.blend2
+.~lock.*#
