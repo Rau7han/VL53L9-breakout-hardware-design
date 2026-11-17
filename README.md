@@ -50,13 +50,21 @@ The `manufacturing/` directory contains fabrication and assembly outputs:
 2. Confirm the board outline, layer count, and fabrication preview before ordering.
 3. For assembly, provide the BOM and pick-and-place file; review part substitutions, rotations, and placements in the assembler’s preview.
 
+## Schematic and editable EasyEDA project
+
+- [Schematic PDF](schematic/vl53l9cx-breakout-schematic.pdf) — printable full-sheet schematic.
+- [Schematic SVG](schematic/vl53l9cx-breakout-schematic.svg) — vector version for zooming in without losing detail.
+- [Editable EasyEDA Pro project](easyeda/vl53l9cx-breakout-editable.epro2) — native project archive with the schematic and PCB design.
+
+To edit the project, download the `.epro2` file and import it in EasyEDA Pro from the start page or with **File → Import → EasyEDA Professional**. The archive is a copy of the project at the time of export; edits made after downloading will not sync back to this GitHub repository. See [EasyEDA Pro’s import guide](https://prodocs.easyeda.com/en/import-export/import-easyeda-pro/index.html).
+
 ## Repository contents
 
 - `manufacturing/` — Gerber, drill, BOM, assembly-placement, and interactive BOM files.
 - `images/` — product renders and a [schematic preview](images/schematic-vl53l9cx-breakout-board.png).
+- `schematic/` — full-sheet schematic exports in PDF and SVG formats.
+- `easyeda/` — editable EasyEDA Pro project archive.
 - `LICENSE` — license terms for this repository.
-
-The editable EasyEDA schematic/PCB project, firmware, and source 3D model are not included in this package.
 
 ## Reference
 
